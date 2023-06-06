@@ -1,6 +1,16 @@
 -- since this is just an example spec, don't actually load anything here and return an empty spec
 -- stylua: ignore
-if true then return {} end
+if true then return {
+  { "mg979/vim-visual-multi" },
+  { "Exafunction/codeium.vim", config = function ()
+    -- Change '<C-g>' here to any keycode you like.
+    vim.keymap.set('i', '<C-g>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+    vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+    vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+    vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+  end },
+  { "prettier/vim-prettier"}
+} end
 
 -- every spec file under config.plugins will be loaded automatically by lazy.nvim
 --
@@ -11,7 +21,7 @@ if true then return {} end
 return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
-
+  { "mg979/vim-visual-multi" },
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
